@@ -1,8 +1,6 @@
 #! /usr/bin/env python
 
-import cgi, cgitb, os, getpixel
-
-err = open ("args.txt", "w")
+import cgi, cgitb, os, getpixel, logic
 
 # Alter as necessary
 def image_mask_files (imgname):
@@ -15,22 +13,21 @@ print
 data = cgi.FieldStorage ()
 
 src = data.getfirst ("src")
+session = data.getfirst ("session")
 x = int(data.getfirst ("x"))
 y = int(data.getfirst ("y"))
+other = data.getfirst ("other")
 
-err.write ("src: " + src + "\n")
+if other and other != "":
+    print logic.process_special (src, other, session, x, y)
+    exit ()
 
 mask_file_base = image_mask_files (src)
 i = 1
 while os.path.exists (mask_file_base % i):
-    err.write (mask_file_base % i + "\n")
     mask = open (mask_file_base % i)
     rgb = getpixel.getpixel (mask, x, y)
-    err.write (str(rgb) + "\n")
     if rgb == [255, 255, 255]:
-        err.write ("Output: " + (mask_file_base % i) + "\n")
-        print (mask_file_base % i)
+        print logic.process (src, mask_file_base % i, session, x, y)
         break
     i += 1
-
-err.close ()
