@@ -45,4 +45,4 @@ def process_special (src, data, session, x, y):
 
     getsession.put (session, params)
 
-    return "spherecube%s.png" % data
+    return "spherecube.png"
