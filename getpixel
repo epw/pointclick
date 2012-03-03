@@ -3,7 +3,7 @@
 """This program takes a single PPM file, gzip-compressed or not, and a
 coordinate pair, and returns the (r, g, b) triplet at that point."""
 
-import sys, gzip, cStringIO
+import sys, gzip, cStringIO, os
 
 def getpixel (imagefile, x, y):
     magicnumber = imagefile.read(2)
@@ -11,6 +11,9 @@ def getpixel (imagefile, x, y):
         imagefile = gzip.open (imagefile.name)
 
     imgmap = cStringIO.StringIO(imagefile.read ())
+
+    if magicnumber == '\x1f\x8b':
+        imagefile.close ()
 
     pnmtype = ""
     width = 0
@@ -43,6 +46,9 @@ if __name__ == "__main__":
     elif len(sys.argv) == 3:
         result = getpixel (sys.stdin, int(sys.argv[1]), int(sys.argv[2]))
     else:
+        if not os.path.exists (sys.argv[1]):
+            sys.stderr.write ("File %s does not exist!\n" % sys.argv[1])
+            sys.exit (1)
         with open (sys.argv[1]) as imagefile:
             result = getpixel (imagefile, int(sys.argv[2]), int(sys.argv[3]))
 
