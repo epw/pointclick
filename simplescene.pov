@@ -32,6 +32,19 @@ plane { z, 0
 	}
 }
 
+#macro Active_Object (ID, OBJ) =
+object {
+	OBJ
+#ifdef (Active)
+#if (Active = ID)
+	texture { pigment { color White }
+		  finish { ambient 2 }
+	  }
+#end
+#end
+}
+#end
+
 sphere { <0, 5, 2>, 1
 #ifdef (Active)
 #if (Active = 1)
