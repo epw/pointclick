@@ -1,0 +1,5 @@
+%s: %s.pov
+	povray $(CFLAGS) %s.ini
+	$(foreach i,$(shell seq `cat activecount.txt`), \
+		povray $(CFLAGS) %s.ini Declare=Active=$i \
+			-O%s_active$i.png; done)

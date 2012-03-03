@@ -4,4 +4,7 @@ all:
 
 simplescene: simplescene.pov
 	povray $(CFLAGS) simplescene.ini
-	povray $(CFLAGS) simplescene.ini Declare=Active=1 -Osimplescene_active1.png
+	$(foreach i,$(shell seq `cat activecount.txt`), \
+		povray $(CFLAGS) simplescene.ini Declare=Active=$i \
+			-Osimplescene_active$i.png; done)
+

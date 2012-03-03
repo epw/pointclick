@@ -3,7 +3,7 @@
 
 #declare HEAD_HEIGHT = 2;
 
-#declare ACTIVE_ID = 1;
+#declare ACTIVE_ID = 0;
 
 #ifdef (Active)
 #default {
@@ -32,26 +32,28 @@ plane { z, 0
 	}
 }
 
+#declare Interesting_Sphere =
+sphere { <0, 5, 2>, 1
+	texture {
+		pigment { color Red }
+	}
+};
+
 #macro Active_Object (OBJ)
+#declare ACTIVE_ID = ACTIVE_ID + 1;
 object {
 	OBJ
 #ifdef (Active)
 #if (Active = ACTIVE_ID)
 	texture { pigment { color White }
-		  finish { ambient 2 }
+		  finish { ambient 1 }
 	  }
 #end
 #end
 }
-#declare ACTIVE_ID = ACTIVE_ID + 1;
 #end
 
-Active_Object (
-sphere { <0, 5, 2>, 1
-	texture {
-		pigment { color Red }
-	}
-})
+Active_Object (Interesting_Sphere)
 
 Active_Object (
 box { <-1, 5, 0>, <-2, 6, 1>
@@ -59,3 +61,13 @@ box { <-1, 5, 0>, <-2, 6, 1>
 		pigment { color Green }
 	}
 })
+
+// AFTER ALL RENDERING DONE, EXTRA CODE HERE
+
+#ifndef (Active)
+
+#fopen ActiveCountFile "activecount.txt" write
+#write (ActiveCountFile, ACTIVE_ID)
+#fclose ActiveCountFile
+
+#end
