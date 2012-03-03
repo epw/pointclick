@@ -1,17 +1,8 @@
 #include "colors.inc"
 #include "woods.inc"
+#include "activeobjc.inc"
 
 #declare HEAD_HEIGHT = 2;
-
-#declare ACTIVE_ID = 0;
-
-#ifdef (Active)
-#default {
-	finish {
-		ambient rgb<0, 0, 0>
-	}
-}
-#end
 
 camera {
 	location <0, 0, HEAD_HEIGHT>
@@ -39,20 +30,6 @@ sphere { <0, 5, 2>, 1
 	}
 };
 
-#macro Active_Object (OBJ)
-#declare ACTIVE_ID = ACTIVE_ID + 1;
-object {
-	OBJ
-#ifdef (Active)
-#if (Active = ACTIVE_ID)
-	texture { pigment { color White }
-		  finish { ambient 1 }
-	  }
-#end
-#end
-}
-#end
-
 Active_Object (Interesting_Sphere)
 
 Active_Object (
@@ -64,10 +41,4 @@ box { <-1, 5, 0>, <-2, 6, 1>
 
 // AFTER ALL RENDERING DONE, EXTRA CODE HERE
 
-#ifndef (Active)
-
-#fopen ActiveCountFile "activecount.txt" write
-#write (ActiveCountFile, ACTIVE_ID)
-#fclose ActiveCountFile
-
-#end
+Record_Active_Count ();

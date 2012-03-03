@@ -13,3 +13,5 @@ logic.
 
 Rendering
 ---------
+
+Every image which will be
