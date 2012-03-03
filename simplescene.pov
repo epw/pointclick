@@ -3,6 +3,8 @@
 
 #declare HEAD_HEIGHT = 2;
 
+#declare ACTIVE_ID = 1;
+
 #ifdef (Active)
 #default {
 	finish {
@@ -20,9 +22,7 @@ camera {
 
 background { color rgb<0, 0, 0> }
 
-#ifdef (Active)
-//global_settings { ambient_light rgb<0, 0, 0> }
-#else
+#ifndef (Active)
 light_source { <0, 0, 10> color rgb<.7, .7, .7> }
 #end
 
@@ -32,29 +32,30 @@ plane { z, 0
 	}
 }
 
-#macro Active_Object (ID, OBJ) =
+#macro Active_Object (OBJ)
 object {
 	OBJ
 #ifdef (Active)
-#if (Active = ID)
+#if (Active = ACTIVE_ID)
 	texture { pigment { color White }
 		  finish { ambient 2 }
 	  }
 #end
 #end
 }
+#declare ACTIVE_ID = ACTIVE_ID + 1;
 #end
 
+Active_Object (
 sphere { <0, 5, 2>, 1
-#ifdef (Active)
-#if (Active = 1)
-	texture { pigment { color White }
-		  finish { ambient 2 }
-	  }
-#end
-#else
 	texture {
 		pigment { color Red }
 	}
-#end
-}
+})
+
+Active_Object (
+box { <-1, 5, 0>, <-2, 6, 1>
+	texture {
+		pigment { color Green }
+	}
+})
