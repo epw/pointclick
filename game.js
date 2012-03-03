@@ -1,12 +1,14 @@
 function handle_click_response (data) {
-    $("#viewport").attr ("src", data);
+    if (data) {
+	$("#viewport").attr ("src", data);
+    }
 }
 
 function process_click (evt) {
     var x = evt.offsetX;
     var y = evt.offsetY;
 
-    $.get ("process_click.cgi", {'src': $("#viewport").src,
+    $.get ("process_click.cgi", {'src': $("#viewport").attr("src"),
 				 'x': x,
 				 'y': y},
 	   handle_click_response);
