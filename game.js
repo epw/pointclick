@@ -4,12 +4,14 @@ function handle_click_response (data) {
     if (data) {
 	$("#viewport").attr ("src", data);
     }
+    $("#loading").css ("visibility", "hidden");
 }
 
 function process_click (x, y, other) {
     if (typeof (other) == "undefined") {
 	other = "";
     }
+    $("#loading").css ("visibility", "visible");
     $.get ("process_click.cgi", {'src': $("#viewport").attr("src"),
 				 'session': session,
 				 'x': x,

@@ -2,7 +2,11 @@ body { background-color: #999 }
 
 h1, h5 { text-align: center }
 
+#loading { text-align: center; padding-bottom: .5em; visibility: hidden }
+#loading span { color: white; background: #700; font-weight: bold;
+		padding: 2px }
+
 div.viewport { text-align: center }
 #viewport { border: medium outset gray; vertical-align: middle }
 
-button.dir { height: 3em }
+button.dir { padding: .75em 2ex }

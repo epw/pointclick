@@ -1,6 +1,6 @@
 #include "colors.inc"
 #include "woods.inc"
-#include "activeobjc.inc"
+#include "activeobjs.inc"
 
 #declare HEAD_HEIGHT = 2;
 
@@ -41,4 +41,4 @@ box { <-1, 5, 0>, <-2, 6, 1>
 
 // AFTER ALL RENDERING DONE, EXTRA CODE HERE
 
-Record_Active_Count ();
+Record_Active_Count ()

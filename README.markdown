@@ -14,4 +14,6 @@ logic.
 Rendering
 ---------
 
-Every image which will be
+Every image which will be shown to the player needs to exist in the
+directory. For this documentation, POVray is assumed to have been used
+to render the scenes.
