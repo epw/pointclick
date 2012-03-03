@@ -1,0 +1,6 @@
+body { background-color: #999 }
+
+h1, h5 { text-align: center }
+
+div.viewport { text-align: center }
+#viewport { border: medium outset gray }
